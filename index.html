@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 60-Day Learning Challenge</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+        :root {
+            --bg: #0f1115;
+            --surface: #181b21;
+            --surface-highlight: #232730;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --brand: #f59e0b; /* Amber/Gold for "Enrichment" vibe */
+            --brand-glow: rgba(245, 158, 11, 0.2);
+            --gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            font-family: 'Outfit', sans-serif; 
+            line-height: 1.6; 
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { line-height: 1.1; }
+        h1, h2 { font-family: 'Playfair Display', serif; } /* Classier font for headers */
+
+        /* Utility */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .text-gradient { 
+            background: var(--gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .center { text-align: center; }
+        .mt-4 { margin-top: 4rem; }
+
+        /* Navigation */
+        nav { padding: 2rem 0; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; }
+        .btn-ghost { color: var(--text-muted); text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .btn-ghost:hover { color: var(--brand); }
+
+        /* Hero */
+        .hero {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            margin-bottom: 1.5rem;
+            animation: slideUp 0.8s ease-out;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+            animation: slideUp 0.8s ease-out 0.2s backwards;
+        }
+        
+        .pill-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* The Grid */
+        .grid-section { padding: 4rem 0; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--brand); }
+        .card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+        .card h3 { font-family: 'Outfit', sans-serif; font-size: 1.25rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .card p { font-size: 0.95rem; color: var(--text-muted); }
+
+        /* Manifesto Section */
+        .manifesto {
+            background: var(--surface);
+            padding: 5rem 0;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .manifesto::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--gradient);
+        }
+        .rule-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+        .rule-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: rgba(255,255,255,0.05);
+            line-height: 1;
+            font-weight: 900;
+        }
+        .rule-content h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--brand); }
+
+        /* Timeline */
+        .timeline { padding: 4rem 0; }
+        .timeline-box {
+            border-left: 2px solid var(--surface-highlight);
+            padding-left: 2rem;
+            margin-left: 1rem;
+        }
+        .timeline-item { margin-bottom: 3rem; position: relative; }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -2.6rem; top: 5px;
+            width: 1rem; height: 1rem;
+            background: var(--bg);
+            border: 2px solid var(--brand);
+            border-radius: 50%;
+        }
+        .timeline-item h4 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+
+        /* CTA */
+        .cta-section { text-align: center; padding: 4rem 0; }
+        .btn-primary {
+            display: inline-block;
+            background: var(--gradient);
+            color: #fff;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 25px var(--brand-glow);
+            transition: 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 35px var(--brand-glow); }
+
+        /* Footer */
+        footer { padding: 3rem 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--surface-highlight); }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">60 Days / Learning</div>
+            <a href="https://github.com/bgerhards/2026-60-days-of-learning" class="btn-ghost">View on GitHub</a>
+        </nav>
+
+        <section class="hero">
+            <span class="pill-badge">The 2026 Challenge</span>
+            <h1>Reclaim Your <br><span class="text-gradient">Curiosity</span></h1>
+            <p>
+                A 60-day challenge for anyone who wants to get smarter, stronger, or just more interesting. 
+                No grades. No boss. Just you and a new skill.
+            </p>
+            <a href="#rules" class="btn-primary">See the Rules</a>
+        </section>
+    </div>
+
+    <section class="grid-section">
+        <div class="container">
+            <div class="center" style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 1rem;">Not Just For Coders</h2>
+                <p style="color: var(--text-muted);">This is for the Makers, the Movers, and the Thinkers.</p>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-icon">🧘</span>
+                    <h3>The Mover</h3>
+                    <p><strong>Example:</strong> Yoga, Calisthenics, Running.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem;">"I want to touch my toes" or "I want to run a 5k without stopping."</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🎮</span>
+                    <h3>The Competitor</h3>
+                    <p><strong>Example:</strong> FPS Aim Training, Chess, Speedrunning.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem;">"I want to hit Diamond rank" or "I want to reach 1200 ELO."</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🥃</span>
+                    <h3>The Connoisseur</h3>
+                    <p><strong>Example:</strong> Cigars, Craft Beer, Coffee, Wine.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem;">"I want to understand flavor profiles, history, and origin."</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🧠</span>
+                    <h3>The Scholar</h3>
+                    <p><strong>Example:</strong> Psychology, History, Philosophy.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem;">"I want to read 3 foundational books and understand Stoicism."</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">💻</span>
+                    <h3>The Builder</h3>
+                    <p><strong>Example:</strong> Godot, Python, Woodworking.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem;">"I want to create something that didn't exist before."</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🎨</span>
+                    <h3>The Creative</h3>
+                    <p><strong>Example:</strong> Digital Art, Pottery, Writing.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem;">"I want to fill a sketchbook" or "I want to write 60 pages."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="manifesto" id="rules">
+        <div class="container">
+            <h2 class="center" style="margin-bottom: 3rem;">The Framework</h2>
+            
+            <div class="rule-item">
+                <div class="rule-number">01</div>
+                <div class="rule-content">
+                    <h3>One Hour a Day</h3>
+                    <p style="color: var(--text-muted);">Ideally 60 minutes. But if life gets crazy, 15 minutes of <strong>intentional</strong> focus is better than 0. It's about keeping the promise to yourself.</p>
+                </div>
+            </div>
+
+            <div class="rule-item">
+                <div class="rule-number">02</div>
+                <div class="rule-content">
+                    <h3>The "Cheat" Day</h3>
+                    <p style="color: var(--text-muted);">One day a week (recommended: Sunday) is for rest. You can use this to rot, touch grass, or catch up on sleep. Rest is part of the work.</p>
+                </div>
+            </div>
+
+            <div class="rule-item">
+                <div class="rule-number">03</div>
+                <div class="rule-content">
+                    <h3>Trust & Accountability</h3>
+                    <p style="color: var(--text-muted);">There is no teacher checking your homework. You can start a blog, use a Habit Tracker, post to GitHub, or just tell a friend. The only person you are cheating is Future You.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline">
+        <div class="container">
+            <h2 style="margin-bottom: 2rem;">What 60 Days Looks Like</h2>
+            <div class="timeline-box">
+                <div class="timeline-item">
+                    <h4>Days 1–10: The Honeymoon</h4>
+                    <p style="color: var(--text-muted);">Motivation is high. You buy the gear, download the software, or buy the sampler pack. It feels easy.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Days 11–30: The Dip</h4>
+                    <p style="color: var(--text-muted);">The novelty wears off. It becomes work. This is where most people quit, and where you will keep going.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Days 31–50: The Breakthrough</h4>
+                    <p style="color: var(--text-muted);">You stop feeling like a total beginner. You start connecting dots. You start enjoying the process itself.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Day 60: The Transformation</h4>
+                    <p style="color: var(--text-muted);">You aren't an expert, but you are infinitely better than you were on Day 1.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start?</h2>
+            <p style="color: var(--text-muted); margin: 1rem auto 2rem; max-width: 500px;">
+                Pick your topic. Pick your start date. Tell a friend.
+            </p>
+            <a href="https://github.com/bgerhards/2026-60-days-of-learning" class="btn-primary">Join the Movement</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Created by <a href="https://github.com/bgerhards" style="color: var(--text-main);">PapaBear</a> & Friends. Hosted on GitHub Pages.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
